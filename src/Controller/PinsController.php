@@ -50,12 +50,12 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit" , methods="GET|PUT")
+     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit" , methods={"GET","PUT"})
      */
     public function edit(Request $request, Pin $pin, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(PinType::class, $pin,[
-            'method'=> 'PUT'
+        $form = $this->createForm(PinType::class, $pin, [
+            'method' => 'PUT'
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,5 +67,16 @@ class PinsController extends AbstractController
             'pin' => $pin,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete" , methods={"DELETE"})
+     */
+    public function delete(Pin $pin, EntityManagerInterface $em): Response
+    {
+        $em->remove($pin);
+        $em->flush();
+        return $this->redirectToRoute('app_home');
+
     }
 }
