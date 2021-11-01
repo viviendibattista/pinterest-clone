@@ -5,9 +5,6 @@
 {% block body %}
 <h1>Edit Pin #{{ pin.id }}</h1>
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
+{{ include('pins/_form.html.twig', {submitButtonText:'Update Pin'}) }}
 
-<input type="submit" value="Update Pin" formnovalidate>
-{{ form_end(form) }}
 {% endblock %}
