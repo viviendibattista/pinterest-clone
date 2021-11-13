@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
 {% block title %}Pinterest clone{% endblock %}
 
@@ -12,7 +12,10 @@
         </a>
     </h2>
     <p>
-        {{ pin.description }}
+        {{ pin.description|u.truncate(10, '...', false) }}
+    </p>
+    <p>
+        Submitted {{ pin.createdAt|ago }}
     </p>
 </article>
 {% endfor %}
