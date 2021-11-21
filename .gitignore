@@ -29,3 +29,7 @@ yarn-error.log
 ###> custom ###
 /public/uploads/
 ###< end custom env vars ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
