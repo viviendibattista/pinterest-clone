@@ -20,7 +20,8 @@
 					<small>
 						Submitted
 						<time datetime="{{ pin.CreatedAt|date('Y-m-d H:i:s') }}">{{ pin.CreatedAt|ago }}</time>
-						by OWNER FULL NAME]
+						ago by
+						{{ pin.user.fullName }}
 					</small>
 				</p>
 				<p class="ps-3 pb-3">
@@ -28,7 +29,7 @@
 				</p>
 				<div class="ps-3 pb-3">
 					<a href="{{ path('app_pins_edit', {id: pin.id} )}}" class="btn btn-light">Edit</a>
-					<a href="#" onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-pin-delete-form').submit();"  class="btn btn-light">Delete</a>
+					<a href="#" onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-pin-delete-form').submit();" class="btn btn-light">Delete</a>
 
 
 					<form id="js-pin-delete-form" action="{{ path('app_pins_delete', {id: pin.id}) }}" method="post" style="display:none;">
