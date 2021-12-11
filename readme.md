@@ -12,7 +12,9 @@ This app allows you to :
 ## How the run the app
 
 After cloning the project run 
+```
 $ composer install
+```
 
 
 The app was developped with PHP 7.4, Apache 2.4 and MySQL 7.4
