@@ -60,21 +60,24 @@ class PinsController extends AbstractController
      */
     public function edit(Request $request, Pin $pin, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(PinType::class, $pin, [
-            'method' => 'PUT'
-        ]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            $this->addFlash('success', 'Pin successfully updated!');
+        if ($this->getUser()->getId() === $pin->getUser()->getId()) {
+            $form = $this->createForm(PinType::class, $pin, [
+                'method' => 'PUT'
+            ]);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
+                $this->addFlash('success', 'Pin successfully updated!');
+                return $this->redirectToRoute('app_home');
+            }
 
-            return $this->redirectToRoute('app_home');
+            return $this->render('pins/edit.html.twig', [
+                'pin' => $pin,
+                'form' => $form->createView()
+            ]);
         }
-
-        return $this->render('pins/edit.html.twig', [
-            'pin' => $pin,
-            'form' => $form->createView()
-        ]);
+        $this->addFlash('error', 'Access denied');
+        return $this->redirectToRoute('app_home');
     }
 
     /**
@@ -82,7 +85,7 @@ class PinsController extends AbstractController
      */
     public function delete(Request $request, Pin $pin, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('pin_deletion_' . $pin->getId(), $request->request->get('csrf_token'))) {
+        if (($this->getUser()->getId() === $pin->getUser()->getId()) && $this->isCsrfTokenValid('pin_deletion_' . $pin->getId(), $request->request->get('csrf_token'))) {
             $em->remove($pin);
             $em->flush();
             $this->addFlash('info', 'Pin successfully deleted!');

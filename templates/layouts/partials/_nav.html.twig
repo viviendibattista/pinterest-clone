@@ -12,9 +12,6 @@
 						<a class="nav-link" href="{{ path('app_pins_create') }}">New Pin</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Account</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();">Logout</a>
 					</li>
 					<form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display:none;">

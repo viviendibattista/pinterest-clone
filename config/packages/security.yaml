@@ -2,7 +2,7 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
         App\Entity\User:
             algorithm: auto
 
@@ -27,9 +27,9 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
             remember_me:
-                secret:   '%kernel.secret%'
+                secret: "%kernel.secret%"
                 lifetime: 604800 # 1 week in seconds
-                path:     /   
+                path: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -40,5 +40,4 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/pins, roles: IS_AUTHENTICATED_FULLY }
